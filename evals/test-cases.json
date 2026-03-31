@@ -1,0 +1,41 @@
+[
+  {
+    "name": "quick-known-answer",
+    "query": "/deep-research quick when was Python first released",
+    "scope": "quick",
+    "assertions": {
+      "structural": true,
+      "contains": ["1991"],
+      "min_findings": 2
+    }
+  },
+  {
+    "name": "standard-comparative",
+    "query": "/deep-research what are the tradeoffs of SQLite vs Postgres for small SaaS",
+    "scope": "standard",
+    "assertions": {
+      "structural": true,
+      "has_sections": ["Detailed Analysis", "Research Gaps"],
+      "min_findings": 4
+    }
+  },
+  {
+    "name": "failure-handling",
+    "query": "/deep-research quick xyzzy9999blargfoo nonexistent topic",
+    "scope": "quick",
+    "assertions": {
+      "structural": false,
+      "contains_any": ["NO_USEFUL_FINDINGS", "Research Gaps", "unanswerable"]
+    }
+  },
+  {
+    "name": "thorough-verification",
+    "query": "/deep-research thorough how does WebGPU differ from WebGL",
+    "scope": "thorough",
+    "assertions": {
+      "structural": true,
+      "has_sections": ["Source Verification Results", "Methodology"],
+      "min_findings": 3
+    }
+  }
+]
