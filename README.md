@@ -99,7 +99,7 @@ If your research question relates to your local project, the skill automatically
 ## Example Output
 
 <details>
-<summary>Sample report: SQLite vs. PostgreSQL tradeoffs (standard scope)</summary>
+<summary>Sample report: Deep research tools in Claude Code (standard scope)</summary>
 
 See [examples/sample-output.md](examples/sample-output.md) for the full report demonstrating source tiers, confidence labels, research gaps, and quality gates in action.
 
@@ -107,12 +107,12 @@ See [examples/sample-output.md](examples/sample-output.md) for the full report d
 
 | Finding | Confidence | Sources |
 |---|---|---|
-| SQLite in WAL mode handles more concurrent readers than expected | Established | Tier 1, Tier 2 |
-| PostgreSQL operational overhead is frequently underestimated | Likely | Tier 3 |
-| Litestream closes the durability gap with S3 replication | Established | Tier 1, Tier 2 |
-| SQLite cannot serve multiple servers writing to same DB | Established | Tier 1, Tier 1 |
-| Rails 8 defaulting to SQLite signals mainstream acceptance | Likely | Tier 1 |
-| PostgreSQL JSONB/extensions have no SQLite equivalent | Established | Tier 1, Tier 2 |
+| Claude Code ships with capable research tools but has deliberate constraints | Established | Tier 1, Tier 2 |
+| The parallel subagent pattern is the foundation of every serious research approach | Established | Tier 1 |
+| Community research skills are the fastest path from zero to structured research | Likely | Tier 1, Tier 2 |
+| MCP search servers have serious subagent compatibility bugs | Established | Tier 1 |
+| MCP tool definitions consume 385 to 17,000+ context tokens per server | Likely | Tier 3 |
+| Anthropic frames MCP and Skills as complementary: "MCP = access, Skills = expertise" | Established | Tier 1 |
 
 </details>
 
