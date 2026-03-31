@@ -1,7 +1,7 @@
 ---
 name: deep-research
 description: "Deep multi-source research with source quality evaluation and hard quality gates. Launches parallel research agents, classifies sources by tier, cross-references findings, and synthesizes structured reports. Use when asked to research, investigate, or deeply analyze any topic requiring multi-source evidence."
-argument-hint: "[quick|thorough] <research question or topic>"
+argument-hint: "[quick|standard|thorough] <research question or topic>"
 ---
 
 # Deep Research
@@ -53,6 +53,7 @@ Red flags: circular citations, "updated for [year]" with no changelog, claims wi
 ## Instructions
 
 1. Use WebSearch with at least 2 different search queries to find 3-5 relevant sources.
+   Vary query phrasing, synonyms, and specificity across queries.
    Prefer Tier 1/2 sources over Tier 3/4.
    If a search query returns nothing useful, reformulate and try again (up to 3 attempts per query).
 2. Use WebFetch to read the top 2-3 most promising sources thoroughly. Extract specific facts, data points, and direct quotes.
@@ -88,7 +89,14 @@ Return your findings in this EXACT format:
 ### Leads Worth Following
 - [URLs or topics discovered but not yet explored]
 
-### Confidence: [High/Medium/Low] — [brief justification referencing source tiers]
+### Confidence: [Established/Likely/Emerging/Contested/Speculative] — [brief justification referencing source tiers]
+
+Confidence label definitions:
+- Established: 2+ independent Tier 1/2 sources agree
+- Likely: 1 Tier 1/2 source, or 2+ Tier 3 sources corroborate
+- Emerging: Single Tier 2/3 source, no contradiction found
+- Contested: Tier 1/2 sources disagree with each other
+- Speculative: Only Tier 3/4 sources, or single uncorroborated claim
 ```
 
 **If an agent returns NO_USEFUL_FINDINGS**, reformulate that angle into a more specific or broader question and dispatch one replacement agent before moving on. If the replacement also fails, accept the gap and note it.
@@ -139,13 +147,13 @@ Collect all verification results for the report.
 
 Synthesis happens in the main conversation context (not a separate agent) to preserve full access to the user's question and conversation history.
 
-**Before synthesizing**, read `${CLAUDE_SKILL_DIR}/references/synthesis-patterns.md` for methodology on grouping, contradiction resolution, and output templates.
+**Before synthesizing**, read `${CLAUDE_SKILL_DIR}/references/synthesis-patterns.md` for methodology on grouping, contradiction resolution, and output templates. Also consult `${CLAUDE_SKILL_DIR}/references/source-evaluation.md` for detailed red flag detection and cross-referencing rules when evaluating source quality.
 
 **Apply these confidence labels** to each Key Finding based on source evidence:
 - **Established**: 2+ independent Tier 1/2 sources agree
 - **Likely**: 1 Tier 1/2 source, or 2+ Tier 3 sources corroborate
-- **Emerging**: Single Tier 2/3 source, no contradiction
-- **Contested**: Tier 1/2 sources disagree
+- **Emerging**: Single Tier 2/3 source, no contradiction found
+- **Contested**: Tier 1/2 sources disagree with each other
 - **Speculative**: Only Tier 3/4 sources, or single uncorroborated claim
 
 **Use the output template** matching the scope (quick/standard/thorough) from synthesis-patterns.md.

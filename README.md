@@ -1,15 +1,17 @@
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/robertnowell/deep-research)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)](https://docs.anthropic.com/en/docs/claude-code/skills)
+
 # Deep Research for Claude Code
 
-Deep research skill with source quality gates — every claim cited, every source classified, no hallucinated URLs.
+Deep research with source quality gates — every claim cited, every source classified, no hallucinated URLs.
 
-A [Claude Code custom skill](https://docs.anthropic.com/en/docs/claude-code/skills) that launches parallel research agents, classifies sources by tier, enforces hard quality gates, and synthesizes structured reports with confidence labels.
+> Built for engineers and decision-makers, not academia. Optimized for speed and source transparency over exhaustive rigor. Get a trustworthy answer in minutes, not a 50-page paper.
 
 ## Quick Start
 
 ```bash
-# Clone and install
-git clone https://github.com/robertnowell/deep-research.git
-cp -r deep-research ~/.claude/skills/deep-research
+git clone https://github.com/robertnowell/deep-research.git ~/.claude/skills/deep-research
 ```
 
 Then in Claude Code:
@@ -34,11 +36,11 @@ A 5-phase research pipeline that runs in your Claude Code session:
 
 Control depth vs. speed with a single keyword:
 
-| Scope | Breadth agents | Depth phase | Verification | Best for |
-|---|---|---|---|---|
-| `quick` | 2 | Skipped | Skipped | Fast orientation on a topic |
-| `standard` | 3 | 1-2 agents | Skipped | Most research questions |
-| `thorough` | 5 | 2-3 agents | Yes | High-stakes decisions, publishing |
+| Scope | Breadth agents | Depth phase | Verification | Typical duration | Best for |
+|---|---|---|---|---|---|
+| `quick` | 2 | Skipped | Skipped | ~2 min | Fast orientation on a topic |
+| `standard` | 3 | 1-2 agents | Skipped | ~5 min | Most research questions |
+| `thorough` | 5 | 2-3 agents | Yes | ~10 min | High-stakes decisions, publishing |
 
 ```
 /deep-research quick what is WebTransport?
@@ -62,7 +64,7 @@ Each key finding gets a confidence label based on source evidence:
 
 - **Established** — 2+ independent Tier 1/2 sources agree
 - **Likely** — 1 Tier 1/2 source, or 2+ Tier 3 sources corroborate
-- **Emerging** — Single Tier 2/3 source, no contradiction
+- **Emerging** — Single Tier 2/3 source, no contradiction found
 - **Contested** — Tier 1/2 sources disagree with each other
 - **Speculative** — Only Tier 3/4 sources, or single uncorroborated claim
 
@@ -78,15 +80,16 @@ Five enforced gates that must pass before the report is shown:
 
 ## How It Compares
 
-| | Raw WebSearch | 199-bio skill | Imbad0202 academic | **This skill** |
+| | Raw WebSearch | [199-bio](https://github.com/199-biotechnologies/claude-deep-research-skill) | [Imbad0202](https://github.com/Imbad0202/academic-research-skills) | **This skill** |
 |---|---|---|---|---|
 | Parallel agents | No | Yes | Yes (13) | Yes (2-5) |
 | Source classification | None | Opaque 0-100 score | Academic-focused | 4-tier transparent system |
 | Quality gates | None | None enforced | PRISMA-style | 5 hard gates |
 | Confidence labels | None | None | None | 5 levels |
-| Scope scaling | N/A | One size | One size | quick / standard / thorough |
+| Scope scaling | N/A | 4 modes | 7 modes | 3 scopes (quick/standard/thorough) |
 | Codebase-aware | No | No | No | Yes |
 | Failed angle disclosure | N/A | No | No | Required |
+| Target audience | — | General | Academic | Engineers and decision-makers |
 | License | N/A | MIT | CC-BY-NC | MIT |
 
 ## Codebase-Aware Research
@@ -95,7 +98,23 @@ If your research question relates to your local project, the skill automatically
 
 ## Example Output
 
-See [examples/sample-output.md](examples/sample-output.md) for a full research report demonstrating source tiers, confidence labels, and quality gates in action.
+<details>
+<summary>Sample report: SQLite vs. PostgreSQL tradeoffs (standard scope)</summary>
+
+See [examples/sample-output.md](examples/sample-output.md) for the full report demonstrating source tiers, confidence labels, research gaps, and quality gates in action.
+
+**Preview of key findings:**
+
+| Finding | Confidence | Sources |
+|---|---|---|
+| SQLite in WAL mode handles more concurrent readers than expected | Established | Tier 1, Tier 2 |
+| PostgreSQL operational overhead is frequently underestimated | Likely | Tier 3 |
+| Litestream closes the durability gap with S3 replication | Established | Tier 1, Tier 2 |
+| SQLite cannot serve multiple servers writing to same DB | Established | Tier 1, Tier 1 |
+| Rails 8 defaulting to SQLite signals mainstream acceptance | Likely | Tier 1 |
+| PostgreSQL JSONB/extensions have no SQLite equivalent | Established | Tier 1, Tier 2 |
+
+</details>
 
 ## File Structure
 
