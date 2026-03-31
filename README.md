@@ -116,6 +116,24 @@ See [examples/sample-output.md](examples/sample-output.md) for the full report d
 
 </details>
 
+<details>
+<summary>Sample report: Inventive uses of deep research (standard scope)</summary>
+
+See [examples/inventive-uses.md](examples/inventive-uses.md) for a report on creative, unexpected applications — M&A due diligence, investigative journalism, OSINT, security research, and research-to-action pipelines.
+
+**Preview of key findings:**
+
+| Finding | Confidence | Sources |
+|---|---|---|
+| The most inventive pattern is research → automated action, not research → report | Likely | Tier 2, Tier 3 |
+| M&A due diligence compresses 6-week timelines to 2 weeks | Established | Tier 1, Tier 2 |
+| Claude Code Security found 500+ undetected vulnerabilities via reasoning-based research | Established | Tier 1, Tier 2 |
+| Investigative journalism workflows replicate published investigations in under an hour | Likely | Tier 3 |
+| Scientific research: genome study compressed from months to 20 minutes | Established | Tier 1 |
+| Self-improvement systems cross-reference journal entries with Git commits | Emerging | Tier 2 |
+
+</details>
+
 ## File Structure
 
 ```
@@ -127,7 +145,8 @@ deep-research/
 │   ├── source-evaluation.md      # Source tier definitions and red flags
 │   └── synthesis-patterns.md     # Report templates and synthesis rules
 └── examples/
-    └── sample-output.md          # Example research output
+    ├── sample-output.md          # Example: deep research tools comparison
+    └── inventive-uses.md         # Example: creative and unexpected applications
 ```
 
 ## License
