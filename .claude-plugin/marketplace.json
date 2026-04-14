@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "deep-research-marketplace",
+  "description": "Deep multi-source research with source quality gates for Claude Code",
+  "owner": {
+    "name": "Robert Nowell"
+  },
+  "plugins": [
+    {
+      "name": "deep-research",
+      "description": "Deep multi-source research with source quality evaluation and hard quality gates",
+      "category": "productivity",
+      "source": "./"
+    }
+  ]
+}

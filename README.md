@@ -10,11 +10,20 @@ Deep research with source quality gates — every claim cited, every source clas
 
 ## Quick Start
 
+One-line install:
+
 ```bash
-git clone https://github.com/robertnowell/deep-research.git ~/.claude/skills/deep-research
+claude plugin marketplace add robertnowell/deep-research && claude plugin install deep-research@deep-research-marketplace
 ```
 
-Then in Claude Code:
+Or from inside Claude Code, as two slash commands:
+
+```
+/plugin marketplace add robertnowell/deep-research
+/plugin install deep-research@deep-research-marketplace
+```
+
+Then:
 
 ```
 /deep-research what are the tradeoffs between SQLite and PostgreSQL for new web apps?
@@ -138,6 +147,9 @@ See [examples/inventive-uses.md](examples/inventive-uses.md) for a report on cre
 
 ```
 deep-research/
+├── .claude-plugin/
+│   ├── plugin.json               # Plugin metadata
+│   └── marketplace.json          # Marketplace manifest
 ├── SKILL.md                      # Skill definition (the pipeline)
 ├── README.md                     # This file
 ├── LICENSE                       # MIT

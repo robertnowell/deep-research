@@ -1,0 +1,12 @@
+{
+  "name": "deep-research",
+  "version": "1.0.0",
+  "description": "Deep multi-source research with source quality evaluation and hard quality gates. Launches parallel research agents, classifies sources by tier, cross-references findings, and synthesizes structured reports.",
+  "author": {
+    "name": "Robert Nowell"
+  },
+  "homepage": "https://github.com/robertnowell/deep-research",
+  "repository": "https://github.com/robertnowell/deep-research",
+  "license": "MIT",
+  "keywords": ["research", "sources", "citations", "claude-skill", "claude-code"]
+}
