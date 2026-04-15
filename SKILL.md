@@ -1,7 +1,7 @@
 ---
 name: deep-research
 description: "Deep multi-source research with source quality evaluation and hard quality gates. Launches parallel research agents, classifies sources by tier, cross-references findings, and synthesizes structured reports. Use when asked to research, investigate, or deeply analyze any topic requiring multi-source evidence."
-argument-hint: "[quick|standard|thorough] <research question or topic>"
+argument-hint: "[quick|standard|thorough|angles] <research question or topic>"
 ---
 
 # Deep Research
@@ -16,10 +16,11 @@ Research question: $ARGUMENTS
 
 Before launching any agents, reason through the following:
 
-1. **Parse scope**: If the first word of the arguments is "quick" or "thorough", treat it as a scope modifier. Otherwise, default to "standard" scope.
+1. **Parse scope**: If the first word of the arguments is "quick", "thorough", or "angles", treat it as a scope modifier. Otherwise, default to "standard" scope.
    - **quick**: 2 breadth agents, skip depth phase, skip verification
    - **standard**: 3 breadth agents, 1-2 depth agents, skip verification
    - **thorough**: 5 breadth agents, 2-3 depth agents, source verification phase
+   - **angles**: 4 breadth agents (each exploring a distinct facet — surprising facts, counterintuitive claims, unresolved debates, real-world anchors), skip depth, skip verification. Output is a candidate-angles list, NOT a question-answered report. Use this mode when the caller wants angle-surfacing for a piece of content, not a definitive answer. See "Angles mode" section below.
 
 2. **Codebase relevance**: Does this question reference the local project, its tech stack, or its architecture? If yes, include a codebase exploration agent (subagent_type: Explore) in the breadth phase.
 
@@ -173,3 +174,90 @@ Enforce ALL of these BEFORE presenting the report to the user. These are not sug
 4. **Source quality caveat**: If >50% of cited sources are Tier 3 or Tier 4, prepend this caveat to the report: *"Note: This research relies primarily on community and secondary sources. Key claims should be independently verified."*
 
 5. **Failed angles disclosed**: If any agent returned `NO_USEFUL_FINDINGS`, the failed angle and attempted queries must appear in the Research Gaps section. Do not silently drop failed angles.
+
+---
+
+## Phase 6: Persist Report
+
+**Write the report to disk before ending the turn.** Reports must survive the conversation — a report that only exists in chat context is useless the moment the session compacts or closes.
+
+1. **Pick a contextual slug** — 2-5 words that identify the *topic*, not the raw question. Examples:
+   - "What are the tradeoffs between SQLite and PostgreSQL for new web apps?" → `sqlite-vs-postgres`
+   - "Should we migrate from Redis to Valkey?" → `redis-to-valkey-migration`
+   - "What is WebTransport?" → `webtransport-overview`
+   - Kebab-case, lowercase, alphanumerics and hyphens only, ~40 chars max. No filler words ("what-is", "should-we", "how-to").
+
+2. **Build the path**: `~/.claude/deep-research/YYYY-MM-DD-<slug>.md`. Expand `~` to the absolute home path. Create `~/.claude/deep-research/` if it doesn't exist.
+
+3. **Write the full report** using the Write tool — the same content you're about to display inline (Executive Summary, Key Findings with sources, Research Gaps, confidence labels, quality gate disclosures). Include a frontmatter block at the top:
+   ```yaml
+   ---
+   question: <original user question>
+   scope: <quick|standard|thorough|angles>
+   date: YYYY-MM-DD
+   ---
+   ```
+
+4. **Display the report inline as usual**, then on the final line print the absolute path so the user can find it later:
+   ```
+   Saved: /Users/<you>/.claude/deep-research/2026-04-14-sqlite-vs-postgres.md
+   ```
+
+If a file with that path already exists (same day, same slug), append `-2`, `-3`, etc. before the extension — don't overwrite prior reports.
+
+This applies to every scope including `angles`.
+
+---
+
+## Angles mode (scope: angles)
+
+When scope is "angles", the goal is different from quick/standard/thorough. You are not answering a question; you are surfacing a pool of candidate angles for a piece of content (typically a video essay, blog post, or talk) to choose from. The caller will pick 2–4 angles to develop further; your job is to give them enough to choose from and to ground each candidate angle in real sources.
+
+**Skip the normal Phase 1 step 3** ("break into 3-5 angles"). Instead, use these four fixed facets as the breadth agents:
+
+1. **Surprising facts** — what do insiders know that most people don't? What numbers or mechanisms in this space are counterintuitive? Look for specific named facts (with sources) that would make a viewer say "wait, what?"
+2. **Counterintuitive claims / overreach** — where is the public narrative wrong or oversimplified? Where is the industry overreaching (claiming more than the evidence supports)? Who's the most credible critic, and what do they say?
+3. **Unresolved debates** — what are the open questions experts are actively disagreeing about? Where are there competing explanations with different adherents? Name the sides and the best source for each.
+4. **Real-world anchors** — specific companies, incidents, dates, case studies, court filings, primary-source documents, named people. These are the hooks the final script will lean on. List specific anchors with URLs.
+
+Each facet agent runs with the same tier classification rules and output format from Phase 2 (Key Findings with sources).
+
+**Skip Phase 3 (depth) and Phase 4 (verification)** entirely in angles mode. The caller is doing a shallow pass to pick angles; the winning angle will get a thorough pass later.
+
+**Phase 5 synthesis format for angles mode:**
+
+Instead of the normal report template, return:
+
+```
+# Candidate Angles — [topic]
+
+## Executive summary
+Two sentences on what this topic actually looks like once you've surveyed it. Not a thesis; a lay of the land.
+
+## Candidate Angles
+
+### Angle 1 — [short punchy name]
+- **Thesis in one sentence**: [concrete claim with at least one number or proper noun]
+- **Why it might click**: [one sentence on the hook]
+- **Research anchors**: [2-4 bullet points, each a specific source/fact/quote with tier annotation]
+
+### Angle 2 — [name]
+(same structure)
+
+### Angle 3 — [name]
+(same structure)
+
+### Angle 4 — [name]
+(same structure)
+
+### Angle 5 — [name] (optional)
+(same structure)
+
+## Sources consulted
+All sources used across the four facets, tier-classified.
+
+## Notes
+Anything the caller should know about the research pool — contested topics, sources that disagreed, gaps.
+```
+
+**Quality gate for angles mode**: every candidate angle must be grounded in at least one Tier 1 or Tier 2 source. If you can't anchor an angle in real material, drop it. Better to return 3 grounded angles than 6 speculative ones.
