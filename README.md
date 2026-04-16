@@ -29,6 +29,22 @@ Then:
 /deep-research what are the tradeoffs between SQLite and PostgreSQL for new web apps?
 ```
 
+### One-time setup: allow writes to the reports directory
+
+Reports are saved to `~/Documents/deep-research/` so they survive beyond the conversation. To skip the per-report permission prompt, add this to your user settings at `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Write(//<your-home>/Documents/deep-research/**)"
+    ]
+  }
+}
+```
+
+Replace `<your-home>` with your absolute home path (e.g., `/Users/you` on macOS, `/home/you` on Linux). Or ask Claude Code to do it: *"allow writes to ~/Documents/deep-research/ in my user settings."*
+
 ## What It Does
 
 A 5-phase research pipeline that runs in your Claude Code session:

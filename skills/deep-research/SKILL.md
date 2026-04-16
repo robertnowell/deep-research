@@ -187,7 +187,7 @@ Enforce ALL of these BEFORE presenting the report to the user. These are not sug
    - "What is WebTransport?" → `webtransport-overview`
    - Kebab-case, lowercase, alphanumerics and hyphens only, ~40 chars max. No filler words ("what-is", "should-we", "how-to").
 
-2. **Build the path**: `~/.claude/deep-research/YYYY-MM-DD-<slug>.md`. Expand `~` to the absolute home path. Create `~/.claude/deep-research/` if it doesn't exist.
+2. **Build the path**: `~/Documents/deep-research/YYYY-MM-DD-<slug>.md`. Expand `~` to the absolute home path. Create `~/Documents/deep-research/` if it doesn't exist.
 
 3. **Write the full report** using the Write tool — the same content you're about to display inline (Executive Summary, Key Findings with sources, Research Gaps, confidence labels, quality gate disclosures). Include a frontmatter block at the top:
    ```yaml
@@ -200,7 +200,7 @@ Enforce ALL of these BEFORE presenting the report to the user. These are not sug
 
 4. **Display the report inline as usual**, then on the final line print the absolute path so the user can find it later:
    ```
-   Saved: /Users/<you>/.claude/deep-research/2026-04-14-sqlite-vs-postgres.md
+   Saved: /Users/<you>/Documents/deep-research/2026-04-14-sqlite-vs-postgres.md
    ```
 
 If a file with that path already exists (same day, same slug), append `-2`, `-3`, etc. before the extension — don't overwrite prior reports.
