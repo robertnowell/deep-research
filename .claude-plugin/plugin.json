@@ -1,6 +1,6 @@
 {
   "name": "deep-research",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Deep multi-source research with source quality evaluation and hard quality gates. Launches parallel research agents, classifies sources by tier, cross-references findings, and synthesizes structured reports.",
   "author": {
     "name": "Robert Nowell"

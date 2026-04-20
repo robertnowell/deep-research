@@ -198,10 +198,15 @@ Enforce ALL of these BEFORE presenting the report to the user. These are not sug
    ---
    ```
 
-4. **Display the report inline as usual**, then on the final line print the absolute path so the user can find it later:
+4. **Display the COMPLETE report inline.** Not a summary. Not a highlight reel. The full report — Executive Summary, all Key Findings with citations, Detailed Analysis, Source Verification table (thorough scope), Sources, Research Gaps, Methodology. The chat transcript is the primary delivery; the file is an archive for post-session access. Claude Code's TUI renders markdown (headers, tables, code blocks, bold) — use that.
+
+   The file and the inline output are the same content. Do not save one and truncate the other.
+
+5. **After displaying the report**, print a single final line with the re-view command — ready to copy-paste into the terminal:
    ```
-   Saved: /Users/<you>/Documents/deep-research/2026-04-14-sqlite-vs-postgres.md
+   glow /Users/<you>/Documents/deep-research/2026-04-14-sqlite-vs-postgres.md
    ```
+   (`glow` is a terminal-native markdown renderer — `brew install glow` if not present. Any markdown viewer works: `bat`, `mdcat`, `code`, etc. The point is the path is prefixed with a ready command rather than bare text.)
 
 If a file with that path already exists (same day, same slug), append `-2`, `-3`, etc. before the extension — don't overwrite prior reports.
 
