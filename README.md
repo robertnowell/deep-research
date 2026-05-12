@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/robertnowell/deep-research)
+[![Version](https://img.shields.io/badge/version-1.3.0-blue)](https://github.com/robertnowell/deep-research)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Claude Code Skill](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)](https://docs.anthropic.com/en/docs/claude-code/skills)
 
@@ -47,7 +47,7 @@ Replace `<your-home>` with your absolute home path (e.g., `/Users/you` on macOS,
 
 ## What It Does
 
-A 5-phase research pipeline that runs in your Claude Code session:
+A 6-phase research pipeline that runs in your Claude Code session:
 
 | Phase | What happens | Agents |
 |---|---|---|
@@ -56,6 +56,7 @@ A 5-phase research pipeline that runs in your Claude Code session:
 | **Depth** | Fills gaps, verifies contradictions | 1-3 Sonnet agents |
 | **Verify** | Fact-checks single-source claims | Haiku agents (thorough only) |
 | **Synthesize** | Confidence-labeled structured report | Main context |
+| **Persist** | Writes the report to `~/Documents/deep-research/` | Main context |
 
 ### Scope Modes
 
@@ -166,12 +167,14 @@ deep-research/
 ├── .claude-plugin/
 │   ├── plugin.json               # Plugin metadata
 │   └── marketplace.json          # Marketplace manifest
-├── SKILL.md                      # Skill definition (the pipeline)
 ├── README.md                     # This file
 ├── LICENSE                       # MIT
-├── references/
-│   ├── source-evaluation.md      # Source tier definitions and red flags
-│   └── synthesis-patterns.md     # Report templates and synthesis rules
+├── skills/
+│   └── deep-research/
+│       ├── SKILL.md              # Skill definition (the pipeline)
+│       └── references/
+│           ├── source-evaluation.md   # Source tier definitions and red flags
+│           └── synthesis-patterns.md  # Report templates and synthesis rules
 └── examples/
     ├── sample-output.md          # Example: deep research tools comparison
     └── inventive-uses.md         # Example: creative and unexpected applications
