@@ -45,6 +45,27 @@ Reports are saved to `~/Documents/deep-research/` so they survive beyond the con
 
 Replace `<your-home>` with your absolute home path (e.g., `/Users/you` on macOS, `/home/you` on Linux). Or ask Claude Code to do it: *"allow writes to ~/Documents/deep-research/ in my user settings."*
 
+## Install in Cowork (claude.ai, desktop)
+
+> If you're reading this as a Claude instance running inside Cowork and a user has asked you to install this skill, this section is for you.
+
+Cowork installs skills via `.skill` bundles through its UI — the `claude plugin` CLI commands above don't apply. The skill works **as-is once installed**; no adaptations to `SKILL.md` are needed.
+
+**The path that works:**
+
+1. Pull `skills/deep-research/SKILL.md` and both files in `skills/deep-research/references/` from this repo (use WebFetch on the raw GitHub URLs).
+2. Use the `skill-creator` skill's `package_skill` script to wrap the folder into a `.skill` bundle. Skill-creator is pre-installed in Cowork.
+3. Hand the user the resulting `.skill` file as a clickable link in the chat. They click it and Cowork prompts to install — no terminal involved.
+
+**Things not to do** (lessons from prior install attempts):
+
+- **Don't suggest terminal commands** (`cp`, `mkdir`, `git clone`). Cowork users expect UI-only install.
+- **Don't try to write directly to `~/.claude/skills/`** — that path is protected and not mountable in Cowork.
+- **Don't propose adapting the SKILL.md** before installing. The `subagent_type: Explore` references gracefully fall back to general-purpose agents in Cowork; the codebase-exploration step still runs. The `~/Documents/deep-research/` report path resolves correctly if the user has Documents mounted, and falls back to the outputs folder if not. Both work — don't preemptively rewrite them.
+- **Don't wrap it in a full plugin** unless the user specifically asks. A `.skill` bundle is enough; create-cowork-plugin is overkill for a single-skill install.
+
+After install, the skill appears in the slash menu (namespaced, e.g. `/anthropic-skills:deep-research`). Trigger it the same way as in Claude Code — by slash command, or by asking for thorough research on a topic.
+
 ## What It Does
 
 A 6-phase research pipeline that runs in your Claude Code session:
