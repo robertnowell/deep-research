@@ -59,7 +59,9 @@ Red flags: circular citations, "updated for [year]" with no changelog, claims wi
    If a search query returns nothing useful, reformulate and try again (up to 3 attempts per query).
 2. Use WebFetch to read the top 2-3 most promising sources thoroughly. Extract specific facts, data points, and direct quotes.
 3. If any source references another important source, follow that lead with WebFetch.
-4. Do NOT fabricate or assume information. If a source does not clearly state something, say so.
+4. For public social posts, preserve URL, platform, author handle or ID, timestamp, collection query, and whether the post is from an official account.
+   Treat social posts as Tier 4 unless the source-evaluation rules support a narrower claim.
+5. Do NOT fabricate or assume information. If a source does not clearly state something, say so.
 
 ## Failure Protocol
 
