@@ -51,6 +51,29 @@ Examples:
 - Undated or unattributed pages
 - Scraped/aggregated sites that repackage others' content
 
+## Public Social Evidence
+
+Public social posts can be useful for research about public sentiment, user
+reports, incidents, product launch response, or official public communication.
+They need capture metadata and a narrow claim boundary.
+
+When using public social posts:
+- Capture the post URL, platform, author handle or ID, timestamp, retrieval date,
+  collection query or source, and whether the author is an official account.
+- Treat anonymous posts, isolated screenshots, and single uncorroborated posts as
+  Tier 4. Use them as leads, examples, or Research Gaps, not as standalone Key
+  Findings.
+- Treat a post from the subject's verified or official account as Tier 1 only for
+  the narrow claim that the subject publicly said or published something. Do not
+  treat it as independent proof that the statement is true.
+- Corroborate patterns with independent sources before upgrading confidence
+  beyond Speculative.
+- If a source collection tool exports evidence packets, keep collection separate
+  from verification. For X/Twitter research, a user-authorized tool such as
+  [TweetClaw](https://github.com/Xquik-dev/tweetclaw) can capture public post
+  URLs, author IDs, timestamps, query windows, and capture notes. The same
+  tiering and confidence rules still apply.
+
 ## Red Flags
 
 Watch for these signals that a source may be unreliable:
